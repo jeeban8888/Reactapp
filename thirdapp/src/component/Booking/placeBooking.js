@@ -8,9 +8,9 @@ class PlaceBooking extends Component{
         this.state={
             id:Math.floor(Math.random()*100000),
             hotel_name:this.props.match.params.hotel_name,
-            name:'Aakash',
-            phone:'534436546',
-            email:'aakash@gmail.com',
+            name:sessionStorage.getItem('userData')?sessionStorage.getItem('userData').split(',')[0]:'',
+            phone:sessionStorage.getItem('userData')?sessionStorage.getItem('userData').split(',')[2]:'',
+            email:sessionStorage.getItem('userData')?sessionStorage.getItem('userData').split(',')[1]:'',
             cost:sessionStorage.getItem('cost')
         }
     }
@@ -33,6 +33,14 @@ class PlaceBooking extends Component{
             .then(console.log("Going to payment gateway"))
     }
     render(){
+        console.log(sessionStorage.getItem('userData'))
+        if(!sessionStorage.getItem('userData')){
+            return(
+                <div>
+                    <h1>Login First To Place Booking</h1>
+                </div>
+            )
+        }
         return(
             <div className="container">
                 <div className="panel panel-info">
@@ -40,7 +48,7 @@ class PlaceBooking extends Component{
                         Place Booking
                     </div>
                     <div className="panel-body">
-                        <form method="post"  action="https://developerpayment.herokuapp.com/paynow">
+                        <form method="POST" action="https://developerpayment.herokuapp.com/paynow">
                         <div className="form-group">
                             <label>Order Id</label>
                             <input className="form-control" readOnly name="id"

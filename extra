@@ -366,3 +366,5 @@ myarray[1].split('=')[1].split('_')[1]
 
 ///////
 npm run build
+
+https://octtest.herokuapp.com/
